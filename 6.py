@@ -6,6 +6,7 @@ from gradio_client import Client, handle_file
 import datetime
 import sys
 import io
+import threading
 
 class FormulaApp:
     def __init__(self, root):
@@ -79,8 +80,10 @@ class FormulaApp:
         self.result_label.config(text="Результат: ")
         self.is_erasing = False
         self.eraser_button.config(text="Ластик")
-
     def recognize(self):
+        thread = threading.Thread(target=self._recognize)
+        thread.start()
+    def _recognize(self):
         # Здесь будет распознавание
         timestamp = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
         path = f"temp-{timestamp}.bmp"
