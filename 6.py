@@ -81,6 +81,7 @@ class FormulaApp:
         self.is_erasing = False
         self.eraser_button.config(text="Ластик")
     def recognize(self):
+        # Запуск потока для распознавания
         thread = threading.Thread(target=self._recognize)
         thread.start()
     def _recognize(self):
@@ -118,6 +119,7 @@ class FormulaApp:
         messagebox.showinfo("Сохранение", f"Изображение и формула сохранены:\n{image_path}\n{formula_path}")
 
 if __name__ == "__main__":
+    # Отключаем отображение галочки из юникода ( из-за него падает программа)
     sys.stdout = io.TextIOWrapper(sys.stdout.detach(), encoding='utf-8')
     root = tk.Tk()
     app = FormulaApp(root)
